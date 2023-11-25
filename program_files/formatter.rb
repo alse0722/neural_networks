@@ -6,7 +6,7 @@ class Formatter
   def format_function
     sink_vertex = find_sink
     return unless sink_vertex
-
+    # pp 'sink', sink_vertex
     function_string = format_vertex(sink_vertex)
     function_string
   end
@@ -14,11 +14,17 @@ class Formatter
   private
 
   def format_vertex(vertex)
-    connected_vertices = @graph_data.select { |edge| edge[:b] == vertex }.map { |edge| edge[:a] }
+    connected_vertices = @graph_data
+                          .select { |edge| edge[:b] == vertex }
+                          .sort_by { |edge| edge[:n] } # Сортировка по значению ключа :n
+                          .map { |edge| edge[:a] }
+
+    # pp 'connected_vertices', connected_vertices.sort
+
     if connected_vertices.empty?
       "#{vertex}"
     else
-      arguments = connected_vertices.map { |v| format_vertex(v) }
+      arguments = connected_vertices.sort.map { |v| format_vertex(v) }
       "#{vertex}(#{arguments.join(',')})"
     end
   end
