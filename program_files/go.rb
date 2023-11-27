@@ -155,6 +155,12 @@ end
 
 @go = Go.new({debug_mode: false})
 
-# @go.ex1
-# @go.ex2
+puts "\n\nВыполняется задание 1\n"
+@go.ex1
+gets
+puts "\n\nВыполняется задание 2\n"
+@go.ex2
+gets
+puts "\n\nВыполняется задание 3\n"
 @go.ex3
+gets
