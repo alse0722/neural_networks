@@ -2,6 +2,7 @@ require './loader.rb'
 require './validator.rb'
 require './formatter.rb'
 require './counter.rb'
+require './neural_network.rb'
 
 class Go
   def initialize(params = {})
@@ -137,6 +138,31 @@ class Go
     end
   end
 
+  def ex4
+    custom_path = '../test_files/n4/'
+    init_files = [
+      {matrix: custom_path + 'matrix1.txt', vector: custom_path + 'vector1.txt'},
+      {matrix: custom_path + 'matrix2.txt', vector: custom_path + 'vector2.txt'},
+      {matrix: custom_path + 'matrix3.txt', vector: custom_path + 'vector3.txt'}
+    ]
+
+    init_files.each do |files|
+      puts "\nРассматриваются матрица #{files[:matrix]} и вектор #{files[:vector]}"
+
+      neural_network = NeuralNetwork.new(files[:matrix], files[:vector])
+      
+      neural_network.read_data
+
+      # pp neural_network
+
+      if neural_network.check_data
+        neural_network.get_network
+        neural_network.save_matrix_to_json
+        neural_network.save_result_to_file
+      end
+    end
+  end
+
   private
 
   def init_loader(custom_path, init_file)
@@ -155,12 +181,15 @@ end
 
 @go = Go.new({debug_mode: false})
 
-puts "\n\nВыполняется задание 1\n"
-@go.ex1
-gets
-puts "\n\nВыполняется задание 2\n"
-@go.ex2
-gets
-puts "\n\nВыполняется задание 3\n"
-@go.ex3
+# puts "\n\nВыполняется задание 1\n"
+# @go.ex1
+# gets
+# puts "\n\nВыполняется задание 2\n"
+# @go.ex2
+# gets
+# puts "\n\nВыполняется задание 3\n"
+# @go.ex3
+# gets
+puts "\n\nВыполняется задание 4\n"
+@go.ex4
 gets
