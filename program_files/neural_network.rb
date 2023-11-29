@@ -30,21 +30,21 @@ class NeuralNetwork
     end
 
     # Check matrix
-    @matrix.each_with_index do |layer, idx|
-      layer.each do |neuron|
-        begin
-          neuron.map!(&:to_i)
-        rescue ArgumentError => e
-          puts "Ошибка в слое #{idx + 1}: #{e.message}"
-          return false
-        end
+    # @matrix.each_with_index do |layer, idx|
+    #   layer.each do |neuron|
+    #     begin
+    #       neuron.map!(&:to_i)
+    #     rescue ArgumentError => e
+    #       puts "Ошибка в слое #{idx + 1}: #{e.message}"
+    #       return false
+    #     end
 
-        unless neuron.length == @vector.length
-          puts "Несовпадение числа компонентов в слое #{idx + 1}."
-          return false
-        end
-      end
-    end
+    #     unless neuron.length == @vector.length
+    #       puts "Несовпадение числа компонентов в слое #{idx + 1}."
+    #       return false
+    #     end
+    #   end
+    # end
 
     true
   end
