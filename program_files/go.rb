@@ -3,6 +3,7 @@ require './validator.rb'
 require './formatter.rb'
 require './counter.rb'
 require './neural_network.rb'
+require './neural_network_training.rb'
 
 class Go
   def initialize(params = {})
@@ -163,6 +164,25 @@ class Go
     end
   end
 
+  def ex5
+    custom_path = '../test_files/n5/'
+    init_files = [
+      {matrix: custom_path + 'matrix1.json', training: custom_path + 'training1.json', result: 'result1.txt'},
+      {matrix: custom_path + 'matrix2.json', training: custom_path + 'training2.json', result: 'result2.txt'},
+      {matrix: custom_path + 'matrix3.json', training: custom_path + 'training3.json', result: 'result3.txt'}
+    ]
+
+    init_files.each do |files|
+      puts "\nРассматриваются матрица #{files[:matrix]} и обучающая выборка #{files[:training]}"
+
+      params = files
+
+      neuronet = Neuronet.new(params)
+      neuronet_training = neuronet.training(files[:training])
+      neuronet.get_result(neuronet_training, files[:result])
+    end
+  end
+
   private
 
   def init_loader(custom_path, init_file)
@@ -190,6 +210,9 @@ end
 # puts "\n\nВыполняется задание 3\n"
 # @go.ex3
 # gets
-puts "\n\nВыполняется задание 4\n"
-@go.ex4
+# puts "\n\nВыполняется задание 4\n"
+# @go.ex4
+# gets
+puts "\n\nВыполняется задание 5\n"
+@go.ex5
 gets

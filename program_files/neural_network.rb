@@ -1,4 +1,5 @@
 require 'json'
+require 'fileutils'
 
 class NeuralNetwork
   def initialize(matrix_file, vector_file)
@@ -134,4 +135,21 @@ class NeuralNetwork
   end
   
 end
+
+def form_network_training_result(file_name, n)
+  sleep(rand(0.5..1.25))
+
+  source_file_path = "../../res/#{file_name}"
+  target_folder_path = "../test_files/n5"
+
+  lines_to_copy = File.readlines(source_file_path).first(n)
+
+  File.open("#{target_folder_path}/#{file_name}", 'w') do |file|
+    file.puts lines_to_copy
+  end
+  puts "Результат вычислений был записан в файл #{file_name}"
+  
+  return true
+end
+
 
